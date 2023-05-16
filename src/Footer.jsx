@@ -1,8 +1,9 @@
+import styles from "./css/Footer.module.css";
 const Footer = () => {
   return (
-    <div className="Footer">
-      <h1>유지되는 푸터</h1>
-      <p>딱히 넣을 내용은 없지만 없으면 아쉬운 푸터</p>
+    <div className={styles.Footer}>
+      <h1>오이마켓</h1>
+      <p>당근마켓 아님</p>
     </div>
   );
 };
