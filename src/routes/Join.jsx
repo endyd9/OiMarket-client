@@ -3,7 +3,7 @@ import styles from "../css/Join.module.css";
 const Join = () => {
   //미래의 나 기능구현 하도록
   const postUserInfo = () => {
-    console.log("이거 언제 다 구현하나");
+    console.log("하아 이거 언제 다 구현하나");
   };
   return (
     <div className={styles.Join}>
