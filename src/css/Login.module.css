@@ -3,6 +3,55 @@
   background-color: rgb(198, 245, 165);
   top: 60px;
   width: 100%;
-  height: 1000px;
+  height: 800px;
   text-align: center;
+}
+
+.title {
+  position: relative;
+  top: 30px;
+}
+
+.loginForm {
+  position: relative;
+  width: 80%;
+  height: 500px;
+  top: 55px;
+  left: 10%;
+  background-color: aliceblue;
+  border-radius: 10px;
+}
+
+.userInfo {
+  position: relative;
+  top: 50px;
+  text-align: center;
+}
+
+.userInfo > span {
+  position: relative;
+  top: 110px;
+}
+
+.userInfo > span > input {
+  width: 200px;
+  height: 30px;
+  text-align: start;
+}
+.userInfo > span > input::placeholder {
+  color: rgb(5, 158, 107);
+}
+
+.loginBtn {
+  position: relative;
+  top: 110px;
+  width: 100px;
+  height: 40px;
+  background-color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.loginBtn:hover {
+  color: rgb(90, 202, 9);
 }

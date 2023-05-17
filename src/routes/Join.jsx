@@ -7,8 +7,8 @@ const Join = () => {
   };
   return (
     <div className={styles.Join}>
+      <h1 className={styles.title}>회원가입</h1>
       <div className={styles.joinForm}>
-        <h1 className={styles.title}>회원가입</h1>
         <div className={styles.userInfo}>
           <span className={styles.name}>
             이름
