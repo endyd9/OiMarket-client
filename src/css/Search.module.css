@@ -6,3 +6,41 @@
   height: 1000px;
   text-align: center;
 }
+.searchBar {
+  position: relative;
+  width: 300px;
+  height: 30px;
+  top: 30px;
+  font-size: 15px;
+  border-radius: 12px;
+}
+.searchBar::placeholder {
+  color: rgb(5, 158, 107);
+  text-align: center;
+}
+.searchBtn {
+  position: absolute;
+  top: 40px;
+  left: 810px;
+  cursor: pointer;
+}
+
+.searchItems {
+  position: relative;
+  top: 50px;
+  left: 10%;
+  width: 80%;
+  height: 700px;
+  background-color: aliceblue;
+  border-radius: 10px;
+}
+
+.searchResult {
+  position: relative;
+  top: 30px;
+}
+
+.items {
+  list-style: none;
+  text-align: center;
+}

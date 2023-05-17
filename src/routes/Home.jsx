@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useState } from "react";
 import styles from "../css/Home.module.css";
 import Item from "../components/Item";
