@@ -32,6 +32,7 @@ nav > ul {
 .menus {
   display: inline;
   margin-right: 15px;
+  cursor: pointer;
 }
 .menus:hover {
   color: rgb(41, 245, 5);

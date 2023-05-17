@@ -8,13 +8,14 @@ const Home = () => {
   const getItems = async () => {
     const hot = [];
     const newest = [];
-    const json = await fetch("http://localhost:4000/api/test", {
+    const json = await fetch("http://localhost:4000/api/mainItems", {
       method: "post",
     });
     console.log(json.status);
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getItems();
   }, []);
 

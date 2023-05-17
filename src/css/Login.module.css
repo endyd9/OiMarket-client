@@ -28,23 +28,23 @@
   text-align: center;
 }
 
-.userInfo > span {
+.userInfo > form {
   position: relative;
   top: 110px;
 }
 
-.userInfo > span > input {
+.userInfo > form > input {
   width: 200px;
   height: 30px;
   text-align: start;
 }
-.userInfo > span > input::placeholder {
+.userInfo > form > input::placeholder {
   color: rgb(5, 158, 107);
 }
 
 .loginBtn {
   position: relative;
-  top: 110px;
+  top: 30px;
   width: 100px;
   height: 40px;
   background-color: white;
