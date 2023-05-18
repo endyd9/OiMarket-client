@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "../css/Header.module.css";
-import Session from "react-session-api";
 import cookie from "react-cookies";
 
 const Header = () => {
@@ -9,43 +8,6 @@ const Header = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(cookie.load("isLoggedIn"));
 
-  // const isUser = () => {
-  //   console.log(Session.get("loggedInUser"));
-  //   Session.get("loggedInUser") !== undefined
-  //     ? setIsLoggedIn(true)
-  //     : setIsLoggedIn(false);
-  // };
-
-  const UserMenu = () => {
-    return (
-      <div>
-        <Link to={`/serch`}>
-          <li className={styles.menus}>검색</li>
-        </Link>
-        <Link to={`/join`}>
-          <li className={styles.menus}>회원가입</li>
-        </Link>
-        <Link to={`/login`}>
-          <li className={styles.menus}>로그인</li>
-        </Link>
-      </div>
-    );
-  };
-  const VisiterMenu = () => {
-    return (
-      <div>
-        <Link to={`/serch`}>
-          <li className={styles.menus}>검색</li>
-        </Link>
-        <Link to={`/mypage/${cookie.load("loggedInUser")}`}>
-          <li className={styles.menus}>마이페이지</li>
-        </Link>
-        <li onClick={logout} className={styles.menus}>
-          로그아웃
-        </li>
-      </div>
-    );
-  };
   const logout = () => {
     cookie.remove("isLoggedIn");
     cookie.remove("loggedInUser");
@@ -72,9 +34,31 @@ const Header = () => {
       <nav>
         <ul>
           {cookie.load("isLoggedIn") === undefined ? (
-            <UserMenu />
+            <div>
+              <Link to={`/serch`}>
+                <li className={styles.menus}>검색</li>
+              </Link>
+              <Link to={`/join`}>
+                <li className={styles.menus}>회원가입</li>
+              </Link>
+              <Link to={`/login`}>
+                <li className={styles.menus}>로그인</li>
+              </Link>
+            </div>
           ) : (
-            <VisiterMenu />
+            <div>
+              <Link to={`/serch`}>
+                <li className={styles.menus}>검색</li>
+              </Link>
+              <li className={styles.menus}>오이하기</li>
+              <li className={styles.menus}>메세지</li>
+              <Link to={`/mypage/${cookie.load("loggedInUser")}`}>
+                <li className={styles.menus}>내 오이</li>
+              </Link>
+              <li onClick={logout} className={styles.menus}>
+                로그아웃
+              </li>
+            </div>
           )}
         </ul>
       </nav>
