@@ -1,11 +1,13 @@
-import { useHistory } from "react-router-dom";
-import Session from "react-session-api";
+// import { useHistory } from "react-router-dom";
 import cookie from "react-cookies";
 import styles from "../css/Login.module.css";
-import Header from "../components/Header";
+import { useEffect } from "react";
 
 const Login = () => {
-  let history = useHistory();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  // let history = useHistory();
   //api는 역순으로 크크루삥뽕
   const onLoginClick = async () => {
     const id = document.getElementById("id").value;

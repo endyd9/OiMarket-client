@@ -19,9 +19,9 @@
   text-align: center;
 }
 .searchBtn {
-  position: absolute;
-  top: 40px;
-  left: 810px;
+  position: relative;
+  top: 30px;
+  right: 30px;
   cursor: pointer;
 }
 

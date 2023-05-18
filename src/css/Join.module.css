@@ -37,12 +37,6 @@ span {
   font-size: 13px;
 }
 
-.userInfo > input {
-  position: relative;
-  width: 200px;
-  left: 40%;
-}
-
 .idChk {
   position: absolute;
   margin-left: 30px;
@@ -71,4 +65,22 @@ span {
 }
 .joinBtn:hover {
   color: rgb(90, 202, 9);
+}
+
+@media screen and (max-width: 600px) {
+  .idChk {
+    position: absolute;
+    margin-left: 30px;
+    top: 195px;
+    width: 60px;
+    height: 35px;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+  span > input {
+    position: relative;
+    width: 200px;
+  }
 }

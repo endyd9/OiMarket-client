@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
 const Search = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [keyword, setKeyword] = useState("");
   const [itemList, setItemList] = useState([]);
   const [userKeyword, setUserKeyword] = useState("");
