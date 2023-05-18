@@ -8,9 +8,9 @@ const Login = () => {
     window.scrollTo(0, 0);
   }, []);
   // let history = useHistory();
-  //api는 역순으로 크크루삥뽕
-  const onLoginClick = async () => {
-    const id = document.getElementById("id").value;
+  const onLoginClick = async (event) => {
+    event.preventDefault();
+    const userId = document.getElementById("id").value;
     const pass = document.getElementById("pass").value;
     const response = await fetch("http://localhost:4000/api/login", {
       method: "post",
@@ -18,21 +18,21 @@ const Login = () => {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        id,
+        userId,
         pass,
       }),
     });
-    if (response.status === 200) {
+    if (response.status === 403) {
+      return alert("아이디 비번 다시 확인");
+    } else if (response.status === 200) {
       cookie.save("isLoggedIn", true);
       await response
         .json()
-        .then((data) => cookie.save("loggedInUser", data.id));
+        .then((data) => cookie.save("loggedInUser", data.user));
       // history.push("/");
 
       // 새로고침 하기 시른디
       window.location.replace("/");
-    } else if (response.status === 403) {
-      alert("아이디 비번 다시 확인");
     }
   };
 
@@ -41,7 +41,7 @@ const Login = () => {
       <h1 className={styles.title}>로그인</h1>
       <div className={styles.loginForm}>
         <div className={styles.userInfo}>
-          <form>
+          <form method="post">
             <input type="text" name="id" id="id" placeholder="ID" />
             <br />
             <input
