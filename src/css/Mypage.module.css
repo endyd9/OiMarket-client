@@ -37,6 +37,7 @@
 }
 .item > a > img {
   width: 80%;
+  height: 300px;
   background-color: rgb(232, 246, 203);
   padding: 30px 15px 50px 15px;
   border-radius: 12px;

@@ -90,7 +90,11 @@ const Mypage = () => {
               <li key={item._id} className={styles.item}>
                 <Link to={`/item/${item._id}`}>
                   <img
-                    src={`http://localhost:4000/${item.imgUrl}`}
+                    src={
+                      item.imgUrl.length > 0
+                        ? `http://localhost:4000/${item.imgUrl[0]}`
+                        : `http://localhost:4000/${item.imgUrl}`
+                    }
                     alt="커버이미지"
                   />
                   <h3>{item.title}</h3>
