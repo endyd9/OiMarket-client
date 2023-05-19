@@ -2,6 +2,7 @@ import styles from "../css/Search.module.css";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   useEffect(() => {
@@ -11,12 +12,26 @@ const Search = () => {
   const [itemList, setItemList] = useState([]);
   const [userKeyword, setUserKeyword] = useState("");
 
-  //검색 api만들어라 미래의 나!
-  const onSearch = (event) => {
+  //검색어에 맞는 item 불러와버리기
+  const onSearch = async (event) => {
     if (event.key === "Enter" || event.key === undefined) {
-      //fetch 해버릴 예정
-      setItemList([...itemList, "아무것도 없지롱"]);
-      setUserKeyword(`"${keyword}" 검색결과`);
+      if (keyword === "") {
+        return alert("검색어를 입력하세용");
+      }
+      setUserKeyword(`"${keyword}"의 검색결과`);
+      const response = await fetch(
+        `http://localhost:4000/api/search/${encodeURIComponent(keyword)}`
+      );
+      if (response.status === 200) {
+        await response.json().then((data) => {
+          const items = [];
+          data.item.forEach((i) => {
+            items.push(i);
+            console.log(i.imgUrl);
+          });
+          setItemList(items);
+        });
+      }
     }
   };
   return (
@@ -38,10 +53,23 @@ const Search = () => {
         <div className={styles.searchResult}>
           <h1>{userKeyword}</h1>
           <ul className={styles.items}>
-            {/* 디비 연결하면 key값 id로 바꾸셈 */}
-            {itemList.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
+            {itemList.length > 0 ? (
+              itemList.map((item) => (
+                <li key={item._id} className={styles.item}>
+                  <Link to={``}>
+                    <img
+                      src={`http://localhost:4000/${item.imgUrl}`}
+                      alt="커버이미지"
+                    />
+                    <h3>{item.title}</h3>
+                  </Link>
+                </li>
+              ))
+            ) : (
+              <li className={styles.noitem}>
+                <h1>검색결과가 없습니다</h1>
+              </li>
+            )}
           </ul>
         </div>
       </div>

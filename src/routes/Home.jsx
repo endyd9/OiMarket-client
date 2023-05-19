@@ -4,14 +4,27 @@ import styles from "../css/Home.module.css";
 import ItemList from "../components/ItemList";
 
 const Home = () => {
-  //상품 목록 불러올 api 만들어라
+  const [hotitem, setHotitem] = useState([]);
+  const [newitem, setNewitem] = useState([]);
+
+  //상품 목록 불러올 api
   const getItems = async () => {
-    const hot = [];
-    const newest = [];
-    const json = await fetch("http://localhost:4000/api/mainItems", {
+    const response = await fetch("http://localhost:4000/item/api/mainItems", {
       method: "post",
     });
-    console.log(json.status);
+    response.json().then((data) => {
+      const year = new Date().getFullYear();
+      const month = new Date().getMonth() + 1;
+      const day = new Date().getDate();
+      const today = `${year}-${month < 9 ? "0" + month : month}-${
+        day < 9 ? "0" + day : day
+      }`;
+      const newitmes = [];
+      data.item.forEach((item) => {
+        item.createdAt.substring(0, 10) === today ? newitmes.push(item) : null;
+      });
+      setNewitem(newitmes);
+    });
   };
 
   useEffect(() => {
@@ -25,13 +38,20 @@ const Home = () => {
         <h1>오늘의 인기 상품</h1>
         <div>
           <ul className={styles.items}>
-            <li className={styles.item}>
-              <ItemList
-                id={`test`}
-                title={`테스트제목`}
-                corverImg={`이미지 없다`}
-              />
-            </li>
+            {hotitem.length === 0 ? (
+              <li className={styles.noitem}>상품이 없어용</li>
+            ) : (
+              hotitem.map((item) => (
+                <li key={item._id} className={styles.item}>
+                  <ItemList
+                    key={item._id}
+                    _id={`${item._id}`}
+                    title={`${item.title}`}
+                    imgUrl={`${item.imgUrl}`}
+                  />
+                </li>
+              ))
+            )}
           </ul>
         </div>
       </section>
@@ -39,13 +59,20 @@ const Home = () => {
         <h1>오늘의 올라온 상품</h1>
         <div>
           <ul className={styles.items}>
-            <li>
-              <ItemList
-                id={`test`}
-                title={`테스트제목`}
-                corverImg={`이미지 없다`}
-              />
-            </li>
+            {newitem.length === 0 ? (
+              <li>상품이 없어용</li>
+            ) : (
+              newitem.map((item) => (
+                <li key={item._id} className={styles.item}>
+                  <ItemList
+                    key={item._id}
+                    _id={`${item._id}`}
+                    title={`${item.title}`}
+                    imgUrl={`${item.imgUrl}`}
+                  />
+                </li>
+              ))
+            )}
           </ul>
         </div>
       </section>
