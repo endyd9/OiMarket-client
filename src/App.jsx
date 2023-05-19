@@ -7,12 +7,16 @@ import Join from "./routes/Join";
 import Login from "./routes/Login";
 import Search from "./routes/Search";
 import Mypage from "./routes/Mypage";
+import Upload from "./routes/Upload";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Switch>
+        <Route path="/item/upload">
+          <Upload />
+        </Route>
         <Route path="/mypage/:id">
           <Mypage />
         </Route>

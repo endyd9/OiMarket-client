@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { useEffect, useState } from "react";
 import styles from "../css/Home.module.css";
-import Item from "../components/Item";
+import ItemList from "../components/ItemList";
 
 const Home = () => {
   //상품 목록 불러올 api 만들어라
@@ -26,7 +26,7 @@ const Home = () => {
         <div>
           <ul className={styles.items}>
             <li className={styles.item}>
-              <Item
+              <ItemList
                 id={`test`}
                 title={`테스트제목`}
                 corverImg={`이미지 없다`}
@@ -40,7 +40,7 @@ const Home = () => {
         <div>
           <ul className={styles.items}>
             <li>
-              <Item
+              <ItemList
                 id={`test`}
                 title={`테스트제목`}
                 corverImg={`이미지 없다`}

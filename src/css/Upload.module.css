@@ -1,0 +1,73 @@
+.Upload {
+  position: relative;
+  background-color: rgb(198, 245, 165);
+  top: 60px;
+  width: 100%;
+  height: 870px;
+  text-align: center;
+}
+.title {
+  position: relative;
+  top: 30px;
+}
+
+.uploadForm > form {
+  position: relative;
+  width: 80%;
+  height: 600px;
+  top: 55px;
+  left: 10%;
+  background-color: aliceblue;
+  border-radius: 10px;
+}
+.uploadForm > form > input {
+  position: relative;
+  display: block;
+  top: 40px;
+  left: 38%;
+  text-align: start;
+  margin-bottom: 0;
+}
+.uploadForm > form > input::placeholder {
+  text-align: center;
+}
+.uploadForm > form > input[type="text"]:first-child {
+  width: 300px;
+  height: 20px;
+  left: 35.5%;
+  margin-bottom: 20px;
+}
+.uploadForm > form > input[type="file"] {
+  margin-bottom: 50px;
+  left: 42%;
+}
+.uploadForm > form > textarea {
+  width: 65%;
+  height: 280px;
+  margin-top: 10px;
+  resize: none;
+}
+.uploadForm > form > input[type="text"]:nth-child(2) {
+  width: 65%;
+  height: 20px;
+  top: 20px;
+  left: 17%;
+}
+.uploadForm > form > input:last-child {
+  all: unset;
+  position: relative;
+  top: 65px;
+  width: 300px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: white;
+  text-align: center;
+  font-size: 25px;
+  border: 2px solid black;
+
+  cursor: pointer;
+}
+
+.uploadForm > form > input:last-child:hover {
+  background-color: rgb(233, 247, 236);
+}

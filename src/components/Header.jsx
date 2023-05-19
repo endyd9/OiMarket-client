@@ -50,7 +50,9 @@ const Header = () => {
               <Link to={`/serch`}>
                 <li className={styles.menus}>검색</li>
               </Link>
-              <li className={styles.menus}>오이하기</li>
+              <Link to={`/item/upload`}>
+                <li className={styles.menus}>오이하기</li>
+              </Link>
               <li className={styles.menus}>메세지</li>
               <Link to={`/mypage/${cookie.load("loggedInUser")}`}>
                 <li className={styles.menus}>내 오이</li>

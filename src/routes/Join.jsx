@@ -81,6 +81,7 @@ const Join = () => {
 
     //유효성 검사 끗
 
+    // 가입요청
     const response = await fetch("http://localhost:4000/api/join", {
       method: "post",
       headers: {
