@@ -36,7 +36,7 @@
   margin-top: 50px;
 }
 .item > a > img {
-  max-width: 80%;
+  width: 80%;
   background-color: rgb(232, 246, 203);
   padding: 30px 15px 50px 15px;
   border-radius: 12px;

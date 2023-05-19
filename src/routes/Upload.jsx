@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import styles from "../css/Upload.module.css";
 import cookie from "react-cookies";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Upload = () => {
+  const history = useHistory();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -36,9 +38,7 @@ const Upload = () => {
     //태그 쪼개기
     const tags = [...tag.split(",")];
 
-    console.log(incodingImg, 2);
-
-    // 업로드 요청
+    // 업로드 요청 이미지 인코딩 시간걸려서 타임아웃 처리
     setTimeout(async () => {
       const response = await fetch("http://localhost:4000/item/api/upload", {
         method: "post",
@@ -53,7 +53,12 @@ const Upload = () => {
           tags,
         }),
       });
-    }, 1000);
+      if (response.status !== 201) {
+        return alert("업로드 실패!");
+      }
+      alert("업로드 성공!");
+      history.push("/");
+    }, 100);
   };
   return (
     <div className={styles.Upload}>

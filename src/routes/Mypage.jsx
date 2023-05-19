@@ -10,53 +10,53 @@ const Mypage = () => {
   const [userName, setUserName] = useState("");
   const [userItem, setUserItem] = useState([]);
 
-  const testItem = [
-    {
-      _id: "더미키",
-      title: "더미데이터",
-      src: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
-    },
-    {
-      _id: "더미키1",
-      title: "더미데이터",
-      src: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
-    },
-    {
-      _id: "더미키2",
-      title: "더미데이터",
-      src: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
-    },
-    {
-      _id: "더미키3",
-      title: "더미데이터",
-      src: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
-    },
-    {
-      _id: "더미키4",
-      title: "더미데이터",
-      src: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
-    },
-    {
-      _id: "더미키5",
-      title: "더미데이터",
-      src: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
-    },
-    {
-      _id: "더미키6",
-      title: "더미데이터",
-      src: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
-    },
-    {
-      _id: "더미키7",
-      title: "더미데이터",
-      src: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
-    },
-    {
-      _id: "더미키",
-      title: "더미데이터",
-      src: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
-    },
-  ];
+  // const testItem = [
+  //   {
+  //     _id: "더미키",
+  //     title: "더미데이터",
+  //     imgUrl: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
+  //   },
+  //   {
+  //     _id: "더미키1",
+  //     title: "더미데이터",
+  //     imgUrl: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
+  //   },
+  //   {
+  //     _id: "더미키2",
+  //     title: "더미데이터",
+  //     imgUrl: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
+  //   },
+  //   {
+  //     _id: "더미키3",
+  //     title: "더미데이터",
+  //     imgUrl: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
+  //   },
+  //   {
+  //     _id: "더미키4",
+  //     title: "더미데이터",
+  //     imgUrl: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
+  //   },
+  //   {
+  //     _id: "더미키5",
+  //     title: "더미데이터",
+  //     imgUrl: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
+  //   },
+  //   {
+  //     _id: "더미키6",
+  //     title: "더미데이터",
+  //     imgUrl: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
+  //   },
+  //   {
+  //     _id: "더미키7",
+  //     title: "더미데이터",
+  //     imgUrl: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
+  //   },
+  //   {
+  //     _id: "더미키8",
+  //     title: "더미데이터",
+  //     imgUrl: "https://t1.daumcdn.net/cfile/tistory/992032395A950FEB01",
+  //   },
+  // ];
 
   const history = useHistory();
   const { id } = useParams();
@@ -74,12 +74,10 @@ const Mypage = () => {
     if (response.status === 200) {
       await response.json().then((data) => {
         const { user } = data;
-        console.log(user);
         setUserName(user.name);
-        setUserItem(testItem);
+        setUserItem(user.item);
       });
     } else {
-      history.push("/");
     }
   };
   return (
@@ -91,7 +89,10 @@ const Mypage = () => {
             userItem.map((item) => (
               <li key={item._id} className={styles.item}>
                 <Link to={`/item/${item._id}`}>
-                  <img src={item.src} alt="커버이미지" />
+                  <img
+                    src={`http://localhost:4000/${item.imgUrl}`}
+                    alt="커버이미지"
+                  />
                   <h3>{item.title}</h3>
                 </Link>
               </li>
