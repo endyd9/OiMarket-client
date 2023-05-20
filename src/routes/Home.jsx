@@ -35,7 +35,7 @@ const Home = () => {
   return (
     <div className={styles.Home}>
       <section className={styles.sections}>
-        <h1>오늘의 인기 상품</h1>
+        <h1>인기 상품</h1>
         <div>
           <ul className={styles.items}>
             {hotitem.length === 0 ? (
@@ -60,7 +60,7 @@ const Home = () => {
         <div>
           <ul className={styles.items}>
             {newitem.length === 0 ? (
-              <li>상품이 없어용</li>
+              <li className={styles.noitem2}>상품이 없어용</li>
             ) : (
               newitem.map((item) => (
                 <li key={item._id} className={styles.item}>
@@ -68,7 +68,7 @@ const Home = () => {
                     key={item._id}
                     _id={`${item._id}`}
                     title={`${item.title}`}
-                    imgUrl={`${item.imgUrl}`}
+                    imgUrl={`${item.imgUrl[0]}`}
                   />
                 </li>
               ))

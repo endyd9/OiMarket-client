@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styles from "./css/App.module.css";
 import Header from "./components/Header";
@@ -8,6 +9,7 @@ import Login from "./routes/Login";
 import Search from "./routes/Search";
 import Mypage from "./routes/Mypage";
 import Upload from "./routes/Upload";
+import Item from "./routes/Item";
 
 function App() {
   return (
@@ -16,6 +18,9 @@ function App() {
       <Switch>
         <Route path="/item/upload">
           <Upload />
+        </Route>
+        <Route path="/item/:id">
+          <Item />
         </Route>
         <Route path="/mypage/:id">
           <Mypage />
