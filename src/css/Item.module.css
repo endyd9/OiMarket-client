@@ -9,8 +9,9 @@
 
 .title {
   position: relative;
-  top: 40px;
-  margin-bottom: 50px;
+  top: 20px;
+  margin-bottom: 35px;
+  font-size: 50px;
 }
 .iteminfo {
   position: relative;
@@ -42,4 +43,41 @@
 .modalImg {
   max-width: 100%;
   max-height: 100%;
+}
+
+.description {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  top: -30px;
+  left: 10%;
+  width: 80%;
+  min-height: 100px;
+  background-color: white;
+  border-radius: 12px;
+  text-align: left;
+  padding-bottom: 20px;
+}
+.noDescript {
+  text-align: center;
+}
+.description > p {
+  position: relative;
+  word-wrap: break-word;
+  width: 95%;
+  height: auto;
+  top: 10px;
+  left: 2.5%;
+  margin: 0;
+}
+
+.tag {
+  position: relative;
+  max-width: 30%;
+  height: 30px;
+  left: 35%;
+  bottom: 15px;
+  background-color: white;
+  line-height: 180%;
+  border-radius: 12px;
 }

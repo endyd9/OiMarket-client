@@ -67,7 +67,7 @@ const Search = () => {
               ))
             ) : (
               <li className={styles.noitem}>
-                <h1>검색결과가 없습니다</h1>
+                {userKeyword === "" ? null : <h1>검색결과가 없습니다</h1>}
               </li>
             )}
           </ul>

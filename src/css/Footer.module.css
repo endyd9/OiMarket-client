@@ -5,3 +5,8 @@
   background-color: white;
   text-align: center;
 }
+.Footer > h1,
+p {
+  position: relative;
+  top: 30%;
+}

@@ -22,6 +22,7 @@ const Item = () => {
     if ((await response).status === 200) {
       (await response).json().then((data) => {
         setItem(data.item);
+        console.log(data.item.hashtags.length);
         setImgUrl([...data.item.imgUrl]);
         setOwner(data.item.owner);
       });
@@ -72,7 +73,7 @@ const Item = () => {
     centerPadding: "1px",
   };
 
-  //모달 함수
+  //모달 파트
   const onImgClick = (event) => {
     if (modal) {
       setModal(false);
@@ -82,10 +83,12 @@ const Item = () => {
     }
   };
   Modal.setAppElement("#root");
+
   return (
     <div className={styles.Item}>
       <h1 className={styles.title}>{item.title}</h1>
-      <h2 className={styles.owner}>{owner.name}</h2>
+      <h2 className={styles.owner}>판매자 | {owner.name}</h2>
+      <h2>상태 | {item.status ? "판매완료" : "판매중"}</h2>
       <div className={styles.iteminfo}>
         <div className={styles.sliderContanier}>
           <Modal
@@ -138,6 +141,20 @@ const Item = () => {
                   </div>
                 ))}
           </Slider>
+        </div>
+        <div className={styles.description}>
+          {item.description === "" ? (
+            <p className={styles.noDescript}>
+              <br />
+              <br />
+              설명이 없슴둥
+            </p>
+          ) : (
+            <p>{item.description}</p>
+          )}
+        </div>
+        <div className={styles.tag}>
+          {item.hashtags == "" ? "태그가 없넹" : item.hashtags}
         </div>
       </div>
     </div>

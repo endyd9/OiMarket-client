@@ -15,6 +15,12 @@ const Upload = () => {
     const description = document.getElementById("description").value;
     const tag = document.getElementById("tag").value;
 
+    if (title === "") {
+      return alert("제목을 쓰세용");
+    } else if (imgs.length === 0) {
+      return alert("사진을 선택하세용");
+    }
+
     // 업로드할 이미지 base64로 인코딩
     const incodingImg = [];
     imgs.forEach((img, index) => {
@@ -71,7 +77,6 @@ const Upload = () => {
             name="tittle"
             id="title"
             placeholder="제목"
-            required
           />
           <input
             className={styles.uploadImg}
