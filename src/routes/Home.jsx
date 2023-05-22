@@ -9,21 +9,26 @@ const Home = () => {
 
   //상품 목록 불러올 api
   const getItems = async () => {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    const day = new Date().getDate();
+    const today = `${year}-${month < 9 ? "0" + month : month}-${
+      day < 9 ? "0" + day : day
+    }`;
     const response = await fetch("http://localhost:4000/item/api/mainItems", {
       method: "post",
     });
     response.json().then((data) => {
-      const year = new Date().getFullYear();
-      const month = new Date().getMonth() + 1;
-      const day = new Date().getDate();
-      const today = `${year}-${month < 9 ? "0" + month : month}-${
-        day < 9 ? "0" + day : day
-      }`;
       const newitmes = [];
-      data.item.forEach((item) => {
+      const hotitems = [];
+      data.newitem.forEach((item) => {
         item.createdAt.substring(0, 10) === today ? newitmes.push(item) : null;
       });
-      setNewitem(newitmes);
+      data.hotitem.forEach((item) => {
+        hotitems.push(item);
+      });
+      setHotitem(hotitems.slice(0, 10));
+      setNewitem(newitmes.slice(0, 10));
     });
   };
 

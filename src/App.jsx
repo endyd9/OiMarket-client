@@ -10,12 +10,16 @@ import Search from "./routes/Search";
 import Mypage from "./routes/Mypage";
 import Upload from "./routes/Upload";
 import Item from "./routes/Item";
+import Edit from "./routes/Edit";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Switch>
+        <Route path="/item/:id/edit">
+          <Edit />
+        </Route>
         <Route path="/item/upload">
           <Upload />
         </Route>

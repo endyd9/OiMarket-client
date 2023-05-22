@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import cookie from "react-cookies";
 import styles from "../css/Item.module.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Modal from "react-modal";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Item = () => {
   const [item, setItem] = useState({});
@@ -17,12 +19,17 @@ const Item = () => {
 
   const getItem = async () => {
     const response = fetch(`http://localhost:4000/item/api/${id}`, {
-      method: "get",
+      method: "post",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: cookie.load("loggedInUser"),
+      }),
     });
     if ((await response).status === 200) {
-      (await response).json().then((data) => {
+      (await response).json().then(async (data) => {
         setItem(data.item);
-        console.log(data.item.hashtags.length);
         setImgUrl([...data.item.imgUrl]);
         setOwner(data.item.owner);
       });
@@ -154,7 +161,22 @@ const Item = () => {
           )}
         </div>
         <div className={styles.tag}>
-          {item.hashtags == "" ? "태그가 없넹" : item.hashtags}
+          {item.hashtags == ""
+            ? "태그가 없넹"
+            : item.hashtags?.length > 1
+            ? item.hashtags.map((tag) => `${tag}, `)
+            : item.hashtags}
+        </div>
+        <div className={styles.btns}>
+          {item.owner?._id === cookie.load("loggedInUser") ? (
+            <Link to={`/item/${item?._id}/edit`}>
+              <button className={styles.btn}>수정</button>
+            </Link>
+          ) : (
+            <Link to="">
+              <button className={styles.btn}>메세지 보내기</button>
+            </Link>
+          )}
         </div>
       </div>
     </div>
