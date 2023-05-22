@@ -25,7 +25,7 @@ const Home = () => {
         item.createdAt.substring(0, 10) === today ? newitmes.push(item) : null;
       });
       data.hotitem.forEach((item) => {
-        hotitems.push(item);
+        item.meta.views > 0 ? hotitems.push(item) : null;
       });
       setHotitem(hotitems.slice(0, 10));
       setNewitem(newitmes.slice(0, 10));

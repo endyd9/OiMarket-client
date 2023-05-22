@@ -54,7 +54,7 @@ const Header = () => {
                 <li className={styles.menus}>오이하기</li>
               </Link>
               <li className={styles.menus}>메세지</li>
-              <Link to={`/mypage/${cookie.load("loggedInUser")}`}>
+              <Link to={`/user/${cookie.load("loggedInUser")}`}>
                 <li className={styles.menus}>내 오이</li>
               </Link>
               <li onClick={logout} className={styles.menus}>

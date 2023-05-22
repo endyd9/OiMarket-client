@@ -94,7 +94,9 @@ const Item = () => {
   return (
     <div className={styles.Item}>
       <h1 className={styles.title}>{item.title}</h1>
-      <h2 className={styles.owner}>판매자 | {owner.name}</h2>
+      <Link to={`/user/${owner._id}`}>
+        <h2 className={styles.owner}>판매자 | {owner.name}</h2>
+      </Link>
       <h2>상태 | {item.status ? "판매완료" : "판매중"}</h2>
       <div className={styles.iteminfo}>
         <div className={styles.sliderContanier}>

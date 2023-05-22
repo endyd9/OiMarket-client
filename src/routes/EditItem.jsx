@@ -1,4 +1,4 @@
-const Edit = () => {
+const EditItem = () => {
   return (
     <div>
       <h1>수정임</h1>
@@ -6,4 +6,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default EditItem;

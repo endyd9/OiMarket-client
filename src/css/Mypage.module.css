@@ -52,3 +52,15 @@
   width: 100%;
   font-size: 30px;
 }
+
+.btns {
+  margin-top: 30px;
+  margin-right: 5px;
+  width: 5%;
+  height: 30px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.btns:hover {
+  background-color: aliceblue;
+}

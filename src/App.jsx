@@ -10,7 +10,8 @@ import Search from "./routes/Search";
 import Mypage from "./routes/Mypage";
 import Upload from "./routes/Upload";
 import Item from "./routes/Item";
-import Edit from "./routes/Edit";
+import EditItem from "./routes/EditItem";
+import EditUser from "./routes/EditUser";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
       <Header />
       <Switch>
         <Route path="/item/:id/edit">
-          <Edit />
+          <EditItem />
         </Route>
         <Route path="/item/upload">
           <Upload />
@@ -26,7 +27,10 @@ function App() {
         <Route path="/item/:id">
           <Item />
         </Route>
-        <Route path="/mypage/:id">
+        <Route path="/user/:id/edit">
+          <EditUser />
+        </Route>
+        <Route path="/user/:id">
           <Mypage />
         </Route>
         <Route path="/serch">
