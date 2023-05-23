@@ -6,7 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Modal from "react-modal";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Item = () => {
   const [item, setItem] = useState({});
@@ -16,6 +16,8 @@ const Item = () => {
   const [modalImg, setModalImg] = useState();
 
   const { id } = useParams();
+
+  const history = useHistory();
 
   const getItem = async () => {
     const response = fetch(`http://localhost:4000/item/api/${id}`, {
@@ -40,8 +42,28 @@ const Item = () => {
     alert("ㅎㅇ");
   };
 
+  const DeleteItem = async () => {
+    if (item.owner._id === cookie.load("loggedInUser")) {
+      if (window.confirm("삭제하시겠습니까?")) {
+        const response = await fetch(`http://localhost:4000/item/api/${id}`, {
+          method: "delete",
+        });
+        if (response.status === 201) {
+          alert("삭제되었습니다");
+          return history.push("/");
+        } else {
+          return alert("삭제 실패");
+        }
+      } else {
+        return alert("삭제취소");
+      }
+    }
+    alert("권한 없음!");
+    history.push("/");
+  };
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     getItem();
   }, []);
 
@@ -180,12 +202,15 @@ const Item = () => {
         </div>
         <div className={styles.btns}>
           {item.owner?._id === cookie.load("loggedInUser") ? (
-            <div>
+            <div className={styles.ownerBtns}>
               <Link to={`/item/${item?._id}/edit`}>
-                <button className={styles.cbtn}>수정</button>
+                <button className={styles.obtn}>상품 수정</button>
               </Link>
-              <button onClick={ChangeStatus} className={styles.cbtn}>
+              <button onClick={ChangeStatus} className={styles.obtn}>
                 핀매상태 변경
+              </button>
+              <button onClick={DeleteItem} className={styles.obtn}>
+                상품 삭제
               </button>
             </div>
           ) : (

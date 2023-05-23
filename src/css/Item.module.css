@@ -94,3 +94,21 @@
 .btn:hover {
   background-color: rgb(233, 247, 236);
 }
+
+.ownerBtns {
+  position: relative;
+  top: 30px;
+  left: 2%;
+  height: 150px;
+}
+.obtn {
+  width: 10%;
+  height: 50px;
+  border-radius: 10px;
+  margin-right: 30px;
+  background-color: white;
+  cursor: pointer;
+}
+.obtn:hover {
+  background-color: rgb(233, 247, 236);
+}
