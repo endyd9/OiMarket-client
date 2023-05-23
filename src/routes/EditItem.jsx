@@ -14,7 +14,7 @@ const EditItem = () => {
 
   const getItemInfo = async () => {
     const response = fetch(`http://localhost:4000/item/api/${id}`, {
-      method: "post",
+      method: "put",
       headers: {
         "Content-type": "application/json",
       },
@@ -46,8 +46,8 @@ const EditItem = () => {
 
     const tags = [...tag.split(",")];
 
-    const response = await fetch(`http://localhost:4000/item/api/${id}/edit`, {
-      method: "post",
+    const response = await fetch(`http://localhost:4000/item/api/${id}`, {
+      method: "put",
       headers: {
         "Content-type": "application/json",
       },

@@ -22,10 +22,14 @@ const Home = () => {
       const newitmes = [];
       const hotitems = [];
       data.newitem.forEach((item) => {
-        item.createdAt.substring(0, 10) === today ? newitmes.push(item) : null;
+        item.createdAt.substring(0, 10) === today && item.status === false
+          ? newitmes.push(item)
+          : null;
       });
       data.hotitem.forEach((item) => {
-        item.meta.views > 0 ? hotitems.push(item) : null;
+        item.meta.views > 0 && item.status === false
+          ? hotitems.push(item)
+          : null;
       });
       setHotitem(hotitems.slice(0, 10));
       setNewitem(newitmes.slice(0, 10));
@@ -52,7 +56,7 @@ const Home = () => {
                     key={item._id}
                     _id={`${item._id}`}
                     title={`${item.title}`}
-                    imgUrl={`${item.imgUrl}`}
+                    imgUrl={`${item.imgUrl[0]}`}
                   />
                 </li>
               ))

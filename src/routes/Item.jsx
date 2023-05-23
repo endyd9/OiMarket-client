@@ -19,6 +19,7 @@ const Item = () => {
 
   const history = useHistory();
 
+  //상품 정보 요청
   const getItem = async () => {
     const response = fetch(`http://localhost:4000/item/api/${id}`, {
       method: "post",
@@ -38,10 +39,28 @@ const Item = () => {
     }
   };
 
-  const ChangeStatus = () => {
-    alert("ㅎㅇ");
+  //상품 상태 변경
+  const ChangeStatus = async () => {
+    if (item.owner._id === cookie.load("loggedInUser")) {
+      if (window.confirm("상품 상태를 변경하시겠습니까?")) {
+        const response = await fetch(
+          `http://localhost:4000/item/api/${id}/status`,
+          {
+            method: "put",
+          }
+        );
+        if (response.status === 201) {
+          alert("변경완료");
+          window.scrollTo(0, 0);
+          window.location.reload();
+        } else {
+          alert("변경실패 다시시도하세용");
+        }
+      }
+    }
   };
 
+  //상품 삭제
   const DeleteItem = async () => {
     if (item.owner._id === cookie.load("loggedInUser")) {
       if (window.confirm("삭제하시겠습니까?")) {
@@ -63,7 +82,7 @@ const Item = () => {
   };
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     getItem();
   }, []);
 
