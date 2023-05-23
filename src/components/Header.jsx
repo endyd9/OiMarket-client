@@ -11,7 +11,6 @@ const Header = () => {
   const logout = () => {
     cookie.remove("isLoggedIn");
     cookie.remove("loggedInUser");
-    console.log(cookie.load("loggedInUser"));
     setIsLoggedIn(cookie.load("loggedInUser"));
     history.push("/");
   };

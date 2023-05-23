@@ -48,7 +48,7 @@ const Mypage = () => {
       await response.json().then((data) => {
         const { user } = data;
         setUserName(user.name);
-        setUserItem(user.item);
+        setUserItem(user.item.reverse());
       });
     } else {
     }

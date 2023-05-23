@@ -36,12 +36,16 @@ const Item = () => {
     }
   };
 
+  const ChangeStatus = () => {
+    alert("ㅎㅇ");
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     getItem();
   }, []);
 
-  //slick 관련 설정
+  //react-slick 관련 설정
   function NextArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -97,7 +101,12 @@ const Item = () => {
       <Link to={`/user/${owner._id}`}>
         <h2 className={styles.owner}>판매자 | {owner.name}</h2>
       </Link>
-      <h2>상태 | {item.status ? "판매완료" : "판매중"}</h2>
+      <h2>
+        상태 |{" "}
+        <span style={{ fontSize: 23, color: item.status ? "red" : "blue" }}>
+          {item.status ? "판매완료" : "판매중"}
+        </span>
+      </h2>
       <div className={styles.iteminfo}>
         <div className={styles.sliderContanier}>
           <Modal
@@ -171,9 +180,14 @@ const Item = () => {
         </div>
         <div className={styles.btns}>
           {item.owner?._id === cookie.load("loggedInUser") ? (
-            <Link to={`/item/${item?._id}/edit`}>
-              <button className={styles.btn}>수정</button>
-            </Link>
+            <div>
+              <Link to={`/item/${item?._id}/edit`}>
+                <button className={styles.cbtn}>수정</button>
+              </Link>
+              <button onClick={ChangeStatus} className={styles.cbtn}>
+                핀매상태 변경
+              </button>
+            </div>
           ) : (
             <Link to="">
               <button className={styles.btn}>메세지 보내기</button>

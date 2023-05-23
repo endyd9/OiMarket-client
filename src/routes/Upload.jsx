@@ -78,6 +78,7 @@ const Upload = () => {
             id="title"
             placeholder="제목"
           />
+
           <input
             className={styles.uploadImg}
             type="file"
