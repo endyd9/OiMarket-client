@@ -28,6 +28,10 @@
   padding: 10px;
   text-align: center;
   margin-top: 50px;
+  transition: 0.2s;
+}
+.item:hover {
+  scale: 1.1;
 }
 .item > div > a > img {
   width: 80%;

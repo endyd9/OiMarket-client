@@ -1,4 +1,3 @@
-// import { useHistory } from "react-router-dom";
 import cookie from "react-cookies";
 import styles from "../css/Login.module.css";
 import { useEffect } from "react";
@@ -7,7 +6,6 @@ const Login = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  // let history = useHistory();
   const onLoginClick = async (event) => {
     event.preventDefault();
     const userId = document.getElementById("id").value;
@@ -26,13 +24,10 @@ const Login = () => {
       return alert("아이디 비번 다시 확인");
     } else if (response.status === 200) {
       cookie.save("isLoggedIn", true);
-      await response
-        .json()
-        .then((data) => cookie.save("loggedInUser", data.user));
-      // history.push("/");
-
-      // 새로고침 하기 시른디
-      window.location.replace("/");
+      await response.json().then((data) => {
+        cookie.save("loggedInUser", data.user);
+        window.location.replace("/");
+      });
     }
   };
 

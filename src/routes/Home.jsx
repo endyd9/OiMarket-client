@@ -53,8 +53,7 @@ const Home = () => {
               hotitem.map((item) => (
                 <li key={item._id} className={styles.item}>
                   <ItemList
-                    key={item._id}
-                    _id={`${item._id}`}
+                    id={`${item._id}`}
                     title={`${item.title}`}
                     imgUrl={`${item.imgUrl[0]}`}
                   />

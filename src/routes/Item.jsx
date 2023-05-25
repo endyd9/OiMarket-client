@@ -233,7 +233,11 @@ const Item = () => {
               </button>
             </div>
           ) : (
-            <Link to="">
+            <Link
+              to={`/user/${cookie.load("loggedInUser")}/message/${
+                owner._id
+              }/${id}`}
+            >
               <button className={styles.btn}>메세지 보내기</button>
             </Link>
           )}

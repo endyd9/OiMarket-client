@@ -12,12 +12,16 @@ import Upload from "./routes/Upload";
 import Item from "./routes/Item";
 import EditItem from "./routes/EditItem";
 import EditUser from "./routes/EditUser";
+import Messages from "./routes/Messages";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Switch>
+        <Route path="/user/:id/message/:id2?/:itemid?">
+          <Messages />
+        </Route>
         <Route path="/item/:id/edit">
           <EditItem />
         </Route>
@@ -33,10 +37,7 @@ function App() {
         <Route path="/user/:id">
           <Mypage />
         </Route>
-        <Route path="/serch">
-          <Search />
-        </Route>
-        <Route path="/serch">
+        <Route path="/search">
           <Search />
         </Route>
         <Route path="/join">

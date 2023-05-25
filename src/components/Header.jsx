@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "../css/Header.module.css";
 import cookie from "react-cookies";
 
 const Header = () => {
-  const history = useHistory();
-
   const [isLoggedIn, setIsLoggedIn] = useState(cookie.load("isLoggedIn"));
 
   const logout = () => {
     cookie.remove("isLoggedIn");
     cookie.remove("loggedInUser");
     setIsLoggedIn(cookie.load("loggedInUser"));
-    history.push("/");
+    window.location.replace("/");
   };
   useEffect(() => {
     setIsLoggedIn(cookie.load("loggedInUser"));
@@ -34,7 +32,7 @@ const Header = () => {
         <ul>
           {cookie.load("isLoggedIn") === undefined ? (
             <div>
-              <Link to={`/serch`}>
+              <Link to={`/search`}>
                 <li className={styles.menus}>검색</li>
               </Link>
               <Link to={`/join`}>
@@ -46,13 +44,15 @@ const Header = () => {
             </div>
           ) : (
             <div>
-              <Link to={`/serch`}>
+              <Link to={`/search`}>
                 <li className={styles.menus}>검색</li>
               </Link>
               <Link to={`/item/upload`}>
                 <li className={styles.menus}>오이하기</li>
               </Link>
-              <li className={styles.menus}>메세지</li>
+              <Link to={`/user/${cookie.load("loggedInUser")}/message`}>
+                <li className={styles.menus}>메세지</li>
+              </Link>
               <Link to={`/user/${cookie.load("loggedInUser")}`}>
                 <li className={styles.menus}>내 오이</li>
               </Link>

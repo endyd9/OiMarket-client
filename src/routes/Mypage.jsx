@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { Link } from "react-router-dom";
 import cookie from "react-cookies";
 import styles from "../css/Mypage.module.css";
+import ItemList from "../components/ItemList";
 
 const Mypage = () => {
   const [userName, setUserName] = useState("");
@@ -14,6 +12,7 @@ const Mypage = () => {
   const [lastIndex, setLastIndex] = useState(6);
   const [page, setPage] = useState(1);
 
+  //다음 페이지 버튼
   const nextPage = () => {
     if (page === Math.ceil(userItem.length / 6)) {
       return alert("마지막 페이지 입니다.");
@@ -22,6 +21,7 @@ const Mypage = () => {
     setLastIndex((prev) => (prev += 6));
     setPage((prev) => (prev += 1));
   };
+  //이전 페이지 버튼
   const prevPage = () => {
     if (page === 1) {
       return alert("첫번째 페이지 입니다");
@@ -31,12 +31,13 @@ const Mypage = () => {
     setPage((prev) => (prev -= 1));
   };
 
-  const history = useHistory();
   const { id } = useParams();
   useEffect(() => {
     window.scrollTo(0, 0);
     getUserData();
   }, []);
+
+  //사용자 정보를 받아옵니다
   const getUserData = async () => {
     const response = await fetch(
       `http://localhost:4000/user/api/user-data/${id}`,
@@ -48,9 +49,9 @@ const Mypage = () => {
       await response.json().then((data) => {
         const { user } = data;
         setUserName(user.name);
+        console.log(user.item);
         setUserItem(user.item.reverse());
       });
-    } else {
     }
   };
   return (
@@ -69,21 +70,16 @@ const Mypage = () => {
         <button className={styles.btns} onClick={nextPage}>
           {">"}
         </button>
+        {/* 사용자의 상품이 있으면 표시해주고 없으면 오이가 없넹 */}
         <ul className={styles.useritems}>
           {userItem.length !== 0 ? (
             userItem.slice(firstIndex, lastIndex).map((item) => (
               <li key={item._id} className={styles.item}>
-                <Link to={`/item/${item._id}`}>
-                  <img
-                    src={
-                      item.imgUrl.length > 0
-                        ? `http://localhost:4000/${item.imgUrl[0]}`
-                        : `http://localhost:4000/${item.imgUrl}`
-                    }
-                    alt="커버이미지"
-                  />
-                  <h3>{item.title}</h3>
-                </Link>
+                <ItemList
+                  id={item._id}
+                  imgUrl={item.imgUrl[0]}
+                  title={item.title}
+                />
               </li>
             ))
           ) : (

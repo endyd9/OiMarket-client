@@ -3,6 +3,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ItemList from "../components/ItemList";
 
 const Search = () => {
   useEffect(() => {
@@ -27,7 +28,6 @@ const Search = () => {
           const items = [];
           data.item.forEach((i) => {
             items.push(i);
-            console.log(i.imgUrl);
           });
           setItemList(items);
         });
@@ -56,13 +56,11 @@ const Search = () => {
             {itemList.length > 0 ? (
               itemList.map((item) => (
                 <li key={item._id} className={styles.item}>
-                  <Link to={``}>
-                    <img
-                      src={`http://localhost:4000/${item.imgUrl}`}
-                      alt="커버이미지"
-                    />
-                    <h3>{item.title}</h3>
-                  </Link>
+                  <ItemList
+                    id={item._id}
+                    imgUrl={item.imgUrl}
+                    title={item.title}
+                  />
                 </li>
               ))
             ) : (
