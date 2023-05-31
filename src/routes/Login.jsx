@@ -25,7 +25,8 @@ const Login = () => {
     } else if (response.status === 200) {
       cookie.save("isLoggedIn", true);
       await response.json().then((data) => {
-        cookie.save("loggedInUser", data.user);
+        cookie.save("loggedInUser", data.id);
+        cookie.save("userName", data.name);
         window.location.replace("/");
       });
     }

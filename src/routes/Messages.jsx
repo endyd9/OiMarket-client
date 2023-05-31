@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import styles from "../css/Messages.module.css";
 import io from "socket.io-client";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import cookie from "react-cookies";
 
 const Messages = () => {
+  //채팅방 리스트
   const [chatList, setChatList] = useState([]);
 
-  //채팅방 생성 이미 있는방이면 안만들어짐
+  //채팅방 생성
   const { id, id2, itemid } = useParams();
 
   const crateRoom = async () => {
+    //id2나 itemid가 없으면 요청 안하기
     if (id2 === undefined || itemid === undefined) {
       return;
     }
@@ -29,14 +32,14 @@ const Messages = () => {
     );
   };
 
-  //채팅방 불러오기
+  //채팅방 목록 불러오기
   const loadRooms = async () => {
     const response = await fetch(
       `http://localhost:4000/message/api/rooms/${id}`
     );
     if (response.status === 200) {
       await response.json().then((data) => {
-        console.log(data);
+        setChatList(data.user.chat);
       });
     }
   };
@@ -46,30 +49,67 @@ const Messages = () => {
     loadRooms();
   }, []);
 
-  const [users, setUsers] = useState([]);
-  const [chatLog, setChatlog] = useState([]);
+  const [chatLog, setChatLog] = useState([]);
+  const [roomId, setRoomId] = useState("");
+  const [roomTitle, setRoomTitle] = useState("");
 
   const [chatStart, setChatStart] = useState(false);
   const [ws, setWs] = useState();
 
-  const sendMessage = async () => {
+  //채팅방 입장
+  const openChatRoom = (event) => {
+    setRoomTitle(event.target.innerText.replace("에 대한 대화", ""));
+    chatList.forEach((room) => {
+      if (room._id === event.target.id) {
+        setRoomId(room._id);
+        room.messages !== undefined
+          ? setChatLog([...room.messages])
+          : setChatLog([]);
+      }
+    });
+    setChatStart(true);
+  };
+
+  //메세지 보내기
+  const sendMessage = () => {
     const message = document.getElementById("message");
     if (message.value === "") {
       return;
     }
+    setChatLog((prev) => [
+      ...prev,
+      `${cookie.load("userName")} : ${message.value}`,
+    ]);
     ws.emit("send_message", { message: message.value });
-    message.value = "";
+    setTimeout(() => (message.value = ""), 10);
   };
+  //화면에 메세지 그려주기
   const writeMessage = (msg) => {
-    setChatlog((prev) => [...prev, msg]);
+    setChatLog((prev) => [...prev, msg]);
   };
 
+  //채팅방 닫을때
+  const closeChatRoom = () => {
+    setChatStart(false);
+    setChatLog([]);
+    setRoomTitle("");
+    ws.disconnect();
+  };
+
+  //채팅이 시작되면 소켓 접속
   useEffect(() => {
     if (chatStart) {
-      setWs(io.connect("http://localhost:4000/"));
+      setWs(
+        io.connect(
+          `http://localhost:4000?userName=${cookie.load(
+            "userName"
+          )}&&roomId=${roomId}`
+        )
+      );
     }
   }, [chatStart]);
 
+  //메세지 돌려받기
   useEffect(() => {
     ws?.on("receive_message", (msg) => {
       writeMessage(msg);
@@ -78,14 +118,14 @@ const Messages = () => {
 
   return (
     <div className={styles.Message}>
-      <h1 className={styles.title}>소켓 함 가보자</h1>
+      <h1 className={styles.title}>메세지</h1>
       <div className={styles.messageForm}>
         <br />
-        <h2>메세지 목록</h2>
+        <h2>{roomTitle === "" ? "메세지 목록" : roomTitle}</h2>
         <ul className={styles.chatList}>
           {chatStart ? (
             <li className={styles.room}>
-              <h2 onClick={() => setChatStart(false)} className={styles.out}>
+              <h2 onClick={closeChatRoom} className={styles.out}>
                 ❌
               </h2>
               <div>
@@ -107,14 +147,15 @@ const Messages = () => {
                 보내기
               </button>
             </li>
-          ) : chatList.length > 0 ? (
+          ) : chatList?.length > 0 ? (
             chatList.map((room) => (
               <li
-                onClick={() => setChatStart(true)}
-                key={room.id}
+                onClick={openChatRoom}
+                key={room._id}
+                id={room._id}
                 className={styles.rooms}
               >
-                채팅방
+                {room.item.title}에 대한 대화
               </li>
             ))
           ) : (

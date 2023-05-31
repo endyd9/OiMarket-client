@@ -233,13 +233,16 @@ const Item = () => {
               </button>
             </div>
           ) : (
-            <Link
-              to={`/user/${cookie.load("loggedInUser")}/message/${
-                owner._id
-              }/${id}`}
-            >
-              <button className={styles.btn}>메세지 보내기</button>
-            </Link>
+            <button onClick={() => alert("공사중")} className={styles.btn}>
+              메세지 보내기
+            </button>
+            // <Link
+            //   to={`/user/${cookie.load("loggedInUser")}/message/${
+            //     owner._id
+            //   }/${id}`}
+            // >
+            //   <button className={styles.btn}>메세지 보내기</button>
+            // </Link>
           )}
         </div>
       </div>
