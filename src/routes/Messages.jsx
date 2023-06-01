@@ -60,6 +60,7 @@ const Messages = () => {
   const openChatRoom = (event) => {
     setRoomTitle(event.target.innerText.replace("에 대한 대화", ""));
     chatList.forEach((room) => {
+      console.log(room);
       if (room._id === event.target.id) {
         setRoomId(room._id);
         room.messages !== undefined

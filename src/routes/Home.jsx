@@ -22,6 +22,7 @@ const Home = () => {
       const newitmes = [];
       const hotitems = [];
       data.newitem.forEach((item) => {
+        console.log(item);
         item.createdAt.substring(0, 10) === today && item.status === false
           ? newitmes.push(item)
           : null;
@@ -72,9 +73,10 @@ const Home = () => {
             ) : (
               newitem.map((item) => (
                 <li key={item._id} className={styles.item}>
+                  {console.log(item._id)}
                   <ItemList
                     key={item._id}
-                    _id={`${item._id}`}
+                    id={`${item._id}`}
                     title={`${item.title}`}
                     imgUrl={`${item.imgUrl[0]}`}
                   />
