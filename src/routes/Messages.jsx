@@ -60,7 +60,6 @@ const Messages = () => {
   const openChatRoom = (event) => {
     setRoomTitle(event.target.innerText.replace("에 대한 대화", ""));
     chatList.forEach((room) => {
-      console.log(room);
       if (room._id === event.target.id) {
         setRoomId(room._id);
         room.messages !== undefined
@@ -117,6 +116,12 @@ const Messages = () => {
     });
   }, [ws]);
 
+  //채팅창 스크롤 최하단으로
+  useEffect(() => {
+    const chatDiv = document.getElementById("Chatlog");
+    chatDiv?.scrollTo(999, 999);
+  }, [chatLog]);
+
   return (
     <div className={styles.Message}>
       <h1 className={styles.title}>메세지</h1>
@@ -129,7 +134,7 @@ const Messages = () => {
               <h2 onClick={closeChatRoom} className={styles.out}>
                 ❌
               </h2>
-              <div>
+              <div id="Chatlog" className={styles.chatlog}>
                 <ul className={styles.messages}>
                   {chatLog?.map((message, index) => (
                     <li key={index}>{message}</li>

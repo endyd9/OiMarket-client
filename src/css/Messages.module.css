@@ -54,14 +54,12 @@
   background-color: rgb(244, 253, 237);
 }
 
-.room {
-}
 .out {
   position: relative;
   width: 10px;
   text-align: end;
   top: 10px;
-  left: 83%;
+  left: 93%;
   cursor: pointer;
 }
 .sendMessage {
@@ -87,4 +85,14 @@
 .noChat {
   padding-right: 5%;
   padding-top: 25%;
+}
+
+.chatlog {
+  height: 250px;
+  overflow-y: auto;
+}
+
+.messages {
+  list-style: none;
+  text-align: start;
 }
