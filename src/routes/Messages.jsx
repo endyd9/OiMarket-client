@@ -60,11 +60,21 @@ const Messages = () => {
   const openChatRoom = (event) => {
     setRoomTitle(event.target.innerText.replace("에 대한 대화", ""));
     chatList.forEach((room) => {
+      const chatLogArr = [];
       if (room._id === event.target.id) {
         setRoomId(room._id);
-        room.messages !== undefined
-          ? setChatLog([...room.messages])
-          : setChatLog([]);
+        if (room.messages !== undefined) {
+          room.messages.forEach((id) => {
+            if (id[0] === cookie.load("loggedInUser")) {
+              chatLogArr.push(`나 : ${id[1]}`);
+            } else {
+              chatLogArr.push(`상대 : ${id[1]}`);
+            }
+            setChatLog([...chatLogArr]);
+          });
+        } else {
+          setChatLog([]);
+        }
       }
     });
     setChatStart(true);
@@ -76,16 +86,13 @@ const Messages = () => {
     if (message.value === "") {
       return;
     }
-    setChatLog((prev) => [
-      ...prev,
-      `${cookie.load("userName")} : ${message.value}`,
-    ]);
+    setChatLog((prev) => [...prev, `나 : ${message.value}`]);
     ws.emit("send_message", { message: message.value });
     setTimeout(() => (message.value = ""), 10);
   };
   //화면에 메세지 그려주기
   const writeMessage = (msg) => {
-    setChatLog((prev) => [...prev, msg]);
+    setChatLog((prev) => [...prev, `상대 : ${msg}`]);
   };
 
   //채팅방 닫을때
@@ -103,7 +110,7 @@ const Messages = () => {
         io.connect(
           `http://localhost:4000?userName=${cookie.load(
             "userName"
-          )}&&roomId=${roomId}`
+          )}&&userId=${cookie.load("loggedInUser")}&&roomId=${roomId}`
         )
       );
     }
@@ -137,7 +144,9 @@ const Messages = () => {
               <div id="Chatlog" className={styles.chatlog}>
                 <ul className={styles.messages}>
                   {chatLog?.map((message, index) => (
-                    <li key={index}>{message}</li>
+                    <li className={styles.message} key={index}>
+                      {message}
+                    </li>
                   ))}
                 </ul>
               </div>

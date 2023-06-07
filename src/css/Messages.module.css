@@ -96,3 +96,14 @@
   list-style: none;
   text-align: start;
 }
+.message {
+  position: relative;
+  background-color: rgb(120, 225, 152);
+  height: 25px;
+  line-height: 25px;
+  max-width: 100%;
+  left: -10%;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  border-radius: 12px;
+}

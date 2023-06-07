@@ -2,7 +2,6 @@ import styles from "../css/Search.module.css";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import ItemList from "../components/ItemList";
 
 const Search = () => {
@@ -31,6 +30,8 @@ const Search = () => {
           });
           setItemList(items);
         });
+      } else {
+        setItemList([]);
       }
     }
   };
@@ -58,7 +59,7 @@ const Search = () => {
                 <li key={item._id} className={styles.item}>
                   <ItemList
                     id={item._id}
-                    imgUrl={item.imgUrl}
+                    imgUrl={item.imgUrl[0]}
                     title={item.title}
                   />
                 </li>

@@ -12,9 +12,10 @@ const EditItem = () => {
 
   const [item, setItem] = useState({});
 
+  //수정할 상품 기존 데이터 받아오기
   const getItemInfo = async () => {
     const response = fetch(`http://localhost:4000/item/api/${id}`, {
-      method: "put",
+      method: "post",
       headers: {
         "Content-type": "application/json",
       },
@@ -25,6 +26,7 @@ const EditItem = () => {
     if ((await response).status === 200) {
       (await response).json().then(async (data) => {
         setItem(data.item);
+        //업로더가 아니면 돌려보내기
         if (data.item.owner._id !== cookie.load("loggedInUser")) {
           alert("접근권한이 없습니다!!!");
           return history.push("/");

@@ -9,6 +9,7 @@ const Home = () => {
 
   //상품 목록 불러올 api
   const getItems = async () => {
+    //새상품 검색용 오늘 날짜
     const year = new Date().getFullYear();
     const month = new Date().getMonth() + 1;
     const day = new Date().getDate();
@@ -21,17 +22,21 @@ const Home = () => {
     response.json().then((data) => {
       const newitmes = [];
       const hotitems = [];
+      // 새로운 상품 있으면 저장하고 없으면 넘기기
       data.newitem.forEach((item) => {
         item.createdAt.substring(0, 10) === today && item.status === false
           ? newitmes.push(item)
           : null;
       });
+      // 위와 같은데 인기있는 상품임
       data.hotitem.forEach((item) => {
         item.meta.views > 0 && item.status === false
           ? hotitems.push(item)
           : null;
       });
+      // 인기상품 조회수 순으로 10개 잘라넣기
       setHotitem(hotitems.slice(0, 10));
+      // 새 상품 최신순으로 10개 잘라넣기
       setNewitem(newitmes.slice(0, 10));
     });
   };

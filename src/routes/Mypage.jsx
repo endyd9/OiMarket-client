@@ -56,10 +56,11 @@ const Mypage = () => {
   return (
     <div className={styles.Mypage}>
       <h1 className={styles.title}>{userName + "님의 오이"}</h1>
+      {/*페이지 주인이면 정보수정 보이기*/}
       {cookie.load("loggedInUser") === id ? (
         <Link to={`/user/${id}/edit`}>
           <br />
-          <h2>회원정보 수정</h2>
+          <h2 className={styles.userEdit}>회원정보 수정</h2>
         </Link>
       ) : null}
       <div className={styles.userform}>

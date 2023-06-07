@@ -6,6 +6,8 @@ const Login = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // 서버에 로그인 요청
   const onLoginClick = async (event) => {
     event.preventDefault();
     const userId = document.getElementById("id").value;

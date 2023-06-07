@@ -54,7 +54,7 @@ const EditUser = () => {
       }
     );
     if (response.status === 403) {
-      return alert("비밀번호가 틀림");
+      return alert("원래 비밀번호가 틀림");
     } else if (response.status === 200) {
       return alert("새로운 비밀번호가 일치하지 않습니다");
     }
