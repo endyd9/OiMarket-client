@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Modal from "react-modal";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { rootUrl } from "..";
 
 const Item = () => {
   const [item, setItem] = useState({});
@@ -21,15 +22,7 @@ const Item = () => {
 
   //상품 정보 요청
   const getItem = async () => {
-    const response = fetch(`http://localhost:4000/item/api/${id}`, {
-      method: "post",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: cookie.load("loggedInUser"),
-      }),
-    });
+    const response = fetch(`${rootUrl}/item/${id}`);
     if ((await response).status === 200) {
       (await response).json().then(async (data) => {
         setItem(data.item);
@@ -43,12 +36,9 @@ const Item = () => {
   const ChangeStatus = async () => {
     if (item.owner._id === cookie.load("loggedInUser")) {
       if (window.confirm("상품 상태를 변경하시겠습니까?")) {
-        const response = await fetch(
-          `http://localhost:4000/item/api/${id}/status`,
-          {
-            method: "put",
-          }
-        );
+        const response = await fetch(`${rootUrl}/item/${id}/`, {
+          method: "put",
+        });
         if (response.status === 201) {
           alert("변경완료");
           window.scrollTo(0, 0);
@@ -64,7 +54,7 @@ const Item = () => {
   const DeleteItem = async () => {
     if (item.owner._id === cookie.load("loggedInUser")) {
       if (window.confirm("삭제하시겠습니까?")) {
-        const response = await fetch(`http://localhost:4000/item/api/${id}`, {
+        const response = await fetch(`${rootUrl}/item/${id}`, {
           method: "delete",
         });
         if (response.status === 201) {
@@ -80,11 +70,6 @@ const Item = () => {
     alert("권한 없음!");
     history.push("/");
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    getItem();
-  }, []);
 
   //react-slick 관련 설정
   function NextArrow(props) {
@@ -135,6 +120,20 @@ const Item = () => {
     }
   };
   Modal.setAppElement("#root");
+
+  useEffect(() => {
+    if (item?.owner?._id === undefined) return;
+    if (owner._id !== cookie.load("loggedInUser")) {
+      fetch(`${rootUrl}/item/${id}/count`, {
+        method: "PATCH",
+      });
+    }
+  }, [owner]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getItem();
+  }, []);
 
   return (
     <div className={styles.Item}>

@@ -4,6 +4,7 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
+import { rootUrl } from "..";
 import styles from "../css/EditItem.module.css";
 
 const EditItem = () => {
@@ -14,15 +15,7 @@ const EditItem = () => {
 
   //수정할 상품 기존 데이터 받아오기
   const getItemInfo = async () => {
-    const response = fetch(`http://localhost:4000/item/api/${id}`, {
-      method: "post",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: cookie.load("loggedInUser"),
-      }),
-    });
+    const response = fetch(`${rootUrl}/item/${id}`);
     if ((await response).status === 200) {
       (await response).json().then(async (data) => {
         setItem(data.item);
@@ -48,8 +41,8 @@ const EditItem = () => {
 
     const tags = [...tag.split(",")];
 
-    const response = await fetch(`http://localhost:4000/item/api/${id}`, {
-      method: "put",
+    const response = await fetch(`${rootUrl}/item/${id}`, {
+      method: "PATCH",
       headers: {
         "Content-type": "application/json",
       },
@@ -60,7 +53,7 @@ const EditItem = () => {
       }),
     });
     if (response.status === 404) {
-      alert("다시 시도하세용");
+      return alert("다시 시도하세용");
     }
     alert("수정완료!");
     return history.push(`/item/${id}`);

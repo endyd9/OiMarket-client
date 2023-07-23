@@ -3,6 +3,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import ItemList from "../components/ItemList";
+import { rootUrl } from "..";
 
 const Search = () => {
   useEffect(() => {
@@ -19,9 +20,7 @@ const Search = () => {
         return alert("검색어를 입력하세용");
       }
       setUserKeyword(`"${keyword}"의 검색결과`);
-      const response = await fetch(
-        `http://localhost:4000/api/search/${encodeURIComponent(keyword)}`
-      );
+      const response = await fetch(`${rootUrl}/search?keyword=${keyword}`);
       if (response.status === 200) {
         await response.json().then((data) => {
           const items = [];

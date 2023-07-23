@@ -6,6 +6,7 @@ import {
 import Modal from "react-modal";
 import cookie from "react-cookies";
 import styles from "../css/EditUser.module.css";
+import { rootUrl } from "..";
 
 const EditUser = () => {
   const history = useHistory();
@@ -19,7 +20,7 @@ const EditUser = () => {
   const [modal, setModal] = useState(false);
 
   const getUserInfo = async () => {
-    const response = await fetch(`http://localhost:4000/user/api/${id}/edit`);
+    const response = await fetch(`${rootUrl}/user/${id}/edit`);
     if (response.status === 200) {
       response.json().then((data) => {
         setUserData(data.user);
@@ -39,20 +40,17 @@ const EditUser = () => {
     const cpwd1 = document.getElementById("newPwd").value;
     const cpwd2 = document.getElementById("newPwd2").value;
 
-    const response = await fetch(
-      `http://localhost:4000/user/api/${id}/edit/pwdCheck`,
-      {
-        method: "post",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          pwd,
-          cpwd1,
-          cpwd2,
-        }),
-      }
-    );
+    const response = await fetch(`${rootUrl}/user/${id}/edit/pwdcheck`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        pwd,
+        cpwd1,
+        cpwd2,
+      }),
+    });
     if (response.status === 403) {
       return alert("원래 비밀번호가 틀림");
     } else if (response.status === 200) {
@@ -77,8 +75,8 @@ const EditUser = () => {
     }
     const phone = tel.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
 
-    const response = await fetch(`http://localhost:4000/user/api/${id}/edit`, {
-      method: "post",
+    const response = await fetch(`${rootUrl}/user/${id}/edit`, {
+      method: "PATCH",
       headers: {
         "Content-type": "application/json",
       },

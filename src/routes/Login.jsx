@@ -1,6 +1,7 @@
 import cookie from "react-cookies";
 import styles from "../css/Login.module.css";
 import { useEffect } from "react";
+import { rootUrl } from "..";
 
 const Login = () => {
   useEffect(() => {
@@ -12,7 +13,7 @@ const Login = () => {
     event.preventDefault();
     const userId = document.getElementById("id").value;
     const pass = document.getElementById("pass").value;
-    const response = await fetch("http://localhost:4000/api/login", {
+    const response = await fetch(`${rootUrl}/login`, {
       method: "post",
       headers: {
         "Content-type": "application/json",

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import cookie from "react-cookies";
 import styles from "../css/Mypage.module.css";
 import ItemList from "../components/ItemList";
+import { rootUrl } from "..";
 
 const Mypage = () => {
   const [userName, setUserName] = useState("");
@@ -39,12 +40,7 @@ const Mypage = () => {
 
   //사용자 정보를 받아옵니다
   const getUserData = async () => {
-    const response = await fetch(
-      `http://localhost:4000/user/api/user-data/${id}`,
-      {
-        method: "post",
-      }
-    );
+    const response = await fetch(`${rootUrl}/user/${id}`);
     if (response.status === 200) {
       await response.json().then((data) => {
         const { user } = data;

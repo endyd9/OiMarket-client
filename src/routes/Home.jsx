@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import styles from "../css/Home.module.css";
 import ItemList from "../components/ItemList";
+import { rootUrl } from "..";
 
 const Home = () => {
   const [hotitem, setHotitem] = useState([]);
@@ -16,9 +17,7 @@ const Home = () => {
     const today = `${year}-${month < 9 ? "0" + month : month}-${
       day < 9 ? "0" + day : day
     }`;
-    const response = await fetch("http://localhost:4000/item/api/mainItems", {
-      method: "post",
-    });
+    const response = await fetch(`${rootUrl}/`);
     response.json().then((data) => {
       const newitmes = [];
       const hotitems = [];

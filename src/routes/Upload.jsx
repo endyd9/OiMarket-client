@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import styles from "../css/Upload.module.css";
 import cookie from "react-cookies";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { rootUrl } from "..";
 
 const Upload = () => {
   const history = useHistory();
@@ -46,7 +47,7 @@ const Upload = () => {
 
     // 업로드 요청 이미지 인코딩 시간걸려서 타임아웃 처리
     setTimeout(async () => {
-      const response = await fetch("http://localhost:4000/item/api/upload", {
+      const response = await fetch(`${rootUrl}/item/upload`, {
         method: "post",
         headers: {
           "Content-type": "application/json",

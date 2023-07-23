@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { rootUrl } from "..";
 import styles from "../css/Join.module.css";
 
 const Join = () => {
@@ -80,9 +81,10 @@ const Join = () => {
     const phone = tel.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
 
     //유효성 검사 끗
+    // 이걸 왜 프론트에서 했지 골떄리네
 
     // 가입요청
-    const response = await fetch("http://localhost:4000/api/join", {
+    const response = await fetch(`${rootUrl}/join`, {
       method: "post",
       headers: {
         "Content-type": "application/json",
@@ -115,15 +117,7 @@ const Join = () => {
     } else if (id.length < 5) {
       return alert("5자 이상 영문 숫자를 섞어주세용");
     }
-    const response = await fetch("http://localhost:4000/api/idExists", {
-      method: "post",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-      }),
-    });
+    const response = await fetch(`${rootUrl}/join/idcheck?id=${id}`);
     if (response.status === 200) {
       setIdexists(false);
       alert("사용가능한 아이디입니다");

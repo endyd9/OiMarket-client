@@ -3,6 +3,7 @@ import styles from "../css/Messages.module.css";
 import io from "socket.io-client";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import cookie from "react-cookies";
+import { rootUrl } from "..";
 
 const Messages = () => {
   //채팅방 리스트
@@ -16,27 +17,22 @@ const Messages = () => {
     if (id2 === undefined || itemid === undefined) {
       return;
     }
-    const response = await fetch(
-      `http://localhost:4000/message/api/createRoom`,
-      {
-        method: "post",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          id,
-          id2,
-          itemid,
-        }),
-      }
-    );
+    const response = await fetch(`${rootUrl}/message/${id}`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+        id2,
+        itemid,
+      }),
+    });
   };
 
   //채팅방 목록 불러오기
   const loadRooms = async () => {
-    const response = await fetch(
-      `http://localhost:4000/message/api/rooms/${id}`
-    );
+    const response = await fetch(`${rootUrl}/message/${id}`);
     if (response.status === 200) {
       await response.json().then((data) => {
         setChatList(data.user.chat);
@@ -45,9 +41,13 @@ const Messages = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     crateRoom();
-    loadRooms();
   }, []);
+
+  useEffect(() => {
+    loadRooms();
+  }, [chatList]);
 
   const [chatLog, setChatLog] = useState([]);
   const [roomId, setRoomId] = useState("");
@@ -108,9 +108,9 @@ const Messages = () => {
     if (chatStart) {
       setWs(
         io.connect(
-          `http://localhost:4000?userName=${cookie.load(
-            "userName"
-          )}&&userId=${cookie.load("loggedInUser")}&&roomId=${roomId}`
+          `${rootUrl}?userName=${cookie.load("userName")}&&userId=${cookie.load(
+            "loggedInUser"
+          )}&&roomId=${roomId}`
         )
       );
     }
