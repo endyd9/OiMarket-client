@@ -28,6 +28,7 @@ const Messages = () => {
         itemid,
       }),
     });
+    loadRooms();
   };
 
   //채팅방 목록 불러오기
@@ -43,11 +44,8 @@ const Messages = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     crateRoom();
-  }, []);
-
-  useEffect(() => {
     loadRooms();
-  }, [chatList]);
+  }, []);
 
   const [chatLog, setChatLog] = useState([]);
   const [roomId, setRoomId] = useState("");
