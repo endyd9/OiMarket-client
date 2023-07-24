@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useNavigate } from "react-router-dom";
 import { rootUrl } from "..";
 import styles from "../css/Join.module.css";
 
 const Join = () => {
-  let histoey = useHistory();
+  const nav = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -104,7 +104,7 @@ const Join = () => {
       alert("엥 왜 안되지");
     } else if (response.status === 201) {
       alert("가입성공");
-      histoey.push("/login");
+      nav("/login");
     }
   };
 

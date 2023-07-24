@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "../css/Messages.module.css";
 import io from "socket.io-client";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from "react-router-dom";
 import cookie from "react-cookies";
 import { rootUrl } from "..";
 

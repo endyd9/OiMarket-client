@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import cookie from "react-cookies";
 import styles from "../css/Item.module.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Modal from "react-modal";
-import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { rootUrl } from "..";
 
 const Item = () => {
@@ -18,7 +17,7 @@ const Item = () => {
 
   const { id } = useParams();
 
-  const history = useHistory();
+  const nav = useNavigate();
 
   //상품 정보 요청
   const getItem = async () => {
@@ -59,7 +58,7 @@ const Item = () => {
         });
         if (response.status === 201) {
           alert("삭제되었습니다");
-          return history.push("/");
+          return nav("/");
         } else {
           return alert("삭제 실패");
         }
@@ -68,7 +67,7 @@ const Item = () => {
       }
     }
     alert("권한 없음!");
-    history.push("/");
+    nav("/");
   };
 
   //react-slick 관련 설정

@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import cookie from "react-cookies";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useNavigate, useParams } from "react-router-dom";
 import { rootUrl } from "..";
 import styles from "../css/EditItem.module.css";
 
 const EditItem = () => {
   const { id } = useParams();
-  const history = useHistory();
+  const nav = useNavigate();
 
   const [item, setItem] = useState({});
 
@@ -22,7 +19,7 @@ const EditItem = () => {
         //업로더가 아니면 돌려보내기
         if (data.item.owner._id !== cookie.load("loggedInUser")) {
           alert("접근권한이 없습니다!!!");
-          return history.push("/");
+          return nav("/");
         }
       });
     }
@@ -56,7 +53,7 @@ const EditItem = () => {
       return alert("다시 시도하세용");
     }
     alert("수정완료!");
-    return history.push(`/item/${id}`);
+    return nav(`/item/${id}`);
   };
 
   useEffect(() => {

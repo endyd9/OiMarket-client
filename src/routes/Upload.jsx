@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import styles from "../css/Upload.module.css";
 import cookie from "react-cookies";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { rootUrl } from "..";
+import { useNavigate } from "react-router-dom";
 
 const Upload = () => {
-  const history = useHistory();
+  const nav = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -64,7 +64,7 @@ const Upload = () => {
         return alert("업로드 실패!");
       }
       alert("업로드 성공!");
-      history.push("/");
+      nav("/");
     }, 100);
   };
   return (

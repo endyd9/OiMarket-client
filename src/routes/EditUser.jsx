@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import cookie from "react-cookies";
 import styles from "../css/EditUser.module.css";
 import { rootUrl } from "..";
 
 const EditUser = () => {
-  const history = useHistory();
+  const nav = useNavigate();
 
   const { id } = useParams();
   if (cookie.load("loggedInUser") !== id) {
-    history.push("/");
+    nav("/");
   }
 
   const [userData, setUserData] = useState({});
@@ -89,7 +86,7 @@ const EditUser = () => {
       return alert("오류발생 잠시 후 시도하세용");
     }
     alert("회원정보 수정 완료!");
-    history.push(`/user/${id}`);
+    nav(`/user/${id}`);
   };
 
   useEffect(() => {

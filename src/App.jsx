@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes as Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./routes/Home";
 import Footer from "./components/Footer";
@@ -12,42 +12,26 @@ import Item from "./routes/Item";
 import EditItem from "./routes/EditItem";
 import EditUser from "./routes/EditUser";
 import Messages from "./routes/Messages";
+import { rootUrl } from ".";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Switch>
-        <Route path="/user/:id/message/:id2?/:itemid?">
-          <Messages />
-        </Route>
-        <Route path="/item/:id/edit">
-          <EditItem />
-        </Route>
-        <Route path="/item/upload">
-          <Upload />
-        </Route>
-        <Route path="/item/:id">
-          <Item />
-        </Route>
-        <Route path="/user/:id/edit">
-          <EditUser />
-        </Route>
-        <Route path="/user/:id">
-          <Mypage />
-        </Route>
-        <Route path="/search">
-          <Search />
-        </Route>
-        <Route path="/join">
-          <Join />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
+        {/* <Route
+          path={`/user/:id/message/:id2?/:itemid?`}
+          element={<Messages />}
+        />
+        <Route path={`/item/:id/edit`} element={<EditItem />} />
+        <Route path={`/item/upload`} element={<Upload />} />
+        <Route path={`/item/:id`} element={<Item />} />
+        <Route path={`/user/:id/edit`} element={<EditUser />} />
+        <Route path={`/user/:id`} element={<Mypage />} /> */}
+        <Route path={`/search`} element={<Search />} />
+        {/* <Route path={`/join`} element={<Join />} />
+        <Route path={`/login`} element={<Login />} /> */}
+        <Route path={`/`} element={<Home />} />
       </Switch>
       <Footer />
     </BrowserRouter>
