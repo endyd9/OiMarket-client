@@ -15,7 +15,7 @@ import Messages from "./routes/Messages";
 
 function App() {
   return (
-    <BrowserRouter basename={process.env.REACT_APP_ROUTE_URL}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Header />
       <Switch>
         <Route
