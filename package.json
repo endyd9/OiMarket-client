@@ -1,8 +1,8 @@
 {
+  "homepage": "https://endyd9.github.io/OiMarket-client/",
   "name": "oimarket",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bam-j.github.io/pages/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
@@ -32,6 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
