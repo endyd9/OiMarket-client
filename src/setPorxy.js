@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: "https://oi-market.fly.dev",
+      target: "https://oi-market.fly.dev/",
       changeOrigin: true,
     })
   );
