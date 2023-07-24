@@ -30,7 +30,7 @@ const Login = () => {
       await response.json().then((data) => {
         cookie.save("loggedInUser", data.id);
         cookie.save("userName", data.name);
-        window.location.replace("/");
+        window.location.replace("/OiMarket-client");
       });
     }
   };

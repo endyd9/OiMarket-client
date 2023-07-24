@@ -10,7 +10,7 @@ const Header = () => {
     cookie.remove("isLoggedIn");
     cookie.remove("loggedInUser");
     setIsLoggedIn(cookie.load("loggedInUser"));
-    window.location.replace("/");
+    window.location.replace("/OiMarket-client");
   };
   useEffect(() => {
     setIsLoggedIn(cookie.load("loggedInUser"));
