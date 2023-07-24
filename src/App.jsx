@@ -12,14 +12,13 @@ import Item from "./routes/Item";
 import EditItem from "./routes/EditItem";
 import EditUser from "./routes/EditUser";
 import Messages from "./routes/Messages";
-import { rootUrl } from ".";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.REACT_APP_ROUTE_URL}>
       <Header />
       <Switch>
-        {/* <Route
+        <Route
           path={`/user/:id/message/:id2?/:itemid?`}
           element={<Messages />}
         />
@@ -27,10 +26,10 @@ function App() {
         <Route path={`/item/upload`} element={<Upload />} />
         <Route path={`/item/:id`} element={<Item />} />
         <Route path={`/user/:id/edit`} element={<EditUser />} />
-        <Route path={`/user/:id`} element={<Mypage />} /> */}
+        <Route path={`/user/:id`} element={<Mypage />} />
         <Route path={`/search`} element={<Search />} />
-        {/* <Route path={`/join`} element={<Join />} />
-        <Route path={`/login`} element={<Login />} /> */}
+        <Route path={`/join`} element={<Join />} />
+        <Route path={`/login`} element={<Login />} />
         <Route path={`/`} element={<Home />} />
       </Switch>
       <Footer />
