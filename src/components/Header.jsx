@@ -11,7 +11,7 @@ const Header = () => {
     cookie.remove("loggedInUser");
     cookie.remove("userName");
     setIsLoggedIn(false);
-    window.location.replace("https://endyd9.github.io/OiMarket-client");
+    window.location.replace("/");
   };
   useEffect(() => {
     setIsLoggedIn(cookie.load("loggedInUser"));

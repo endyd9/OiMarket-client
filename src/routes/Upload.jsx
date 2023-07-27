@@ -20,7 +20,7 @@ const Upload = () => {
     payload.append("uploader", cookie.load("loggedInUser"));
 
     const response = await (
-      await fetch("http://localhost:4000/item/upload", {
+      await fetch(`${process.env.REACT_APP_FETCH_URL}/item/upload`, {
         method: "post",
         body: payload,
       })
