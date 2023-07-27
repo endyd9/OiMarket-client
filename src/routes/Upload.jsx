@@ -3,81 +3,48 @@ import styles from "../css/Upload.module.css";
 import cookie from "react-cookies";
 import { rootUrl } from "..";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Upload = () => {
   const nav = useNavigate();
+  const { register, handleSubmit } = useForm();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const onSubmitClick = async (event) => {
     event.preventDefault();
-    const title = document.getElementById("title").value;
-    const imgs = [...document.getElementById("img").files];
-    const description = document.getElementById("description").value;
-    const tag = document.getElementById("tag").value;
+    const form = document.getElementById("form");
 
-    if (title === "") {
-      return alert("제목을 쓰세용");
-    } else if (imgs.length === 0) {
-      return alert("사진을 선택하세용");
-    }
+    const payload = new FormData(form);
+    payload.append("uploader", cookie.load("loggedInUser"));
 
-    // 업로드할 이미지 base64로 인코딩
-    const incodingImg = [];
-    imgs.forEach((img, index) => {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      const url = URL.createObjectURL(img);
-      const image = new Image();
-      image.src = url;
-
-      image.onload = () => {
-        canvas.width = image.width;
-        canvas.height = image.height;
-        ctx.drawImage(image, 0, 0);
-        // 앞에 필요없는 부분 잘라내서 배열에 담기
-        incodingImg.push(
-          `${canvas.toDataURL().replace(/^data:image\/(png|jpg);base64,/, "")}`
-        );
-      };
-    });
-
-    //태그 쪼개기
-    const tags = [...tag.split(",")];
-
-    // 업로드 요청 이미지 인코딩 시간걸려서 타임아웃 처리
-    setTimeout(async () => {
-      const response = await fetch(`${rootUrl}/item/upload`, {
+    const response = await (
+      await fetch("http://localhost:4000/item/upload", {
         method: "post",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          uploader: cookie.load("loggedInUser"),
-          title,
-          incodingImg,
-          description,
-          tags,
-        }),
-      });
-      if (response.status !== 201) {
-        return alert("업로드 실패!");
-      }
-      alert("업로드 성공!");
-      nav("/");
-    }, 100);
+        body: payload,
+      })
+    ).status;
+
+    if (response !== 201) {
+      return alert("업로드 실패!");
+    }
+    alert("업로드 성공!");
+    nav("/");
   };
+
   return (
     <div className={styles.Upload}>
       <h1 className={styles.title}>오이 하십셔</h1>
       <div className={styles.uploadForm}>
-        <form>
+        <form id="form" onSubmit={onSubmitClick} encType="multipart/form-data">
           <input
             className={styles.postTitle}
             type="text"
             name="tittle"
             id="title"
             placeholder="제목"
+            {...register("title")}
           />
 
           <input
@@ -87,6 +54,7 @@ const Upload = () => {
             id="img"
             accept="image/*"
             multiple
+            {...register("images")}
           />
           <textarea
             className={styles.description}
@@ -96,6 +64,7 @@ const Upload = () => {
             cols="30"
             rows="10"
             placeholder="상품 설명을 써주세요 자세하게"
+            {...register("description")}
           ></textarea>
           <input
             className={styles.tags}
@@ -103,8 +72,9 @@ const Upload = () => {
             name="tags"
             id="tag"
             placeholder="해시태그를 , 로 구분하여 작성해주세용"
+            {...register("tag")}
           />
-          <input type="submit" onClick={onSubmitClick} value="업로드" />
+          <input type="submit" value="업로드" />
         </form>
       </div>
     </div>

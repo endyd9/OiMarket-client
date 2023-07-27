@@ -24,6 +24,7 @@ const Item = () => {
     const response = fetch(`${rootUrl}/item/${id}`);
     if ((await response).status === 200) {
       (await response).json().then(async (data) => {
+        console.log(data.item.imgUrl);
         setItem(data.item);
         setImgUrl([...data.item.imgUrl]);
         setOwner(data.item.owner);
@@ -192,7 +193,7 @@ const Item = () => {
                   <div key={index} className={styles.imgs}>
                     <img
                       className={styles.img}
-                      src={`http://localhost:4000/${url}`}
+                      src={`${url}`}
                       onClick={onImgClick}
                     />
                   </div>
