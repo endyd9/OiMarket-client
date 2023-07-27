@@ -24,7 +24,6 @@ const Item = () => {
     const response = fetch(`${rootUrl}/item/${id}`);
     if ((await response).status === 200) {
       (await response).json().then(async (data) => {
-        console.log(data.item.imgUrl);
         setItem(data.item);
         setImgUrl([...data.item.imgUrl]);
         setOwner(data.item.owner);
@@ -231,10 +230,10 @@ const Item = () => {
                 상품 삭제
               </button>
             </div>
-          ) : (
-            // <button onClick={() => alert("공사중")} className={styles.btn}>
-            //   메세지 보내기
-            // </button>
+          ) : // <button onClick={() => alert("공사중")} className={styles.btn}>
+          //   메세지 보내기
+          // </button>
+          cookie.load("isloggedIn") ? (
             <Link
               to={`/user/${cookie.load("loggedInUser")}/message/${
                 owner._id
@@ -242,7 +241,7 @@ const Item = () => {
             >
               <button className={styles.btn}>메세지 보내기</button>
             </Link>
-          )}
+          ) : null}
         </div>
       </div>
     </div>
