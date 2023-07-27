@@ -9,7 +9,8 @@ const Header = () => {
   const logout = () => {
     cookie.remove("isLoggedIn");
     cookie.remove("loggedInUser");
-    setIsLoggedIn(cookie.load("loggedInUser"));
+    cookie.remove("userName");
+    setIsLoggedIn(false);
     window.location.replace("https://endyd9.github.io/OiMarket-client");
   };
   useEffect(() => {
