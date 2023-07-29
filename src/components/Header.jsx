@@ -11,7 +11,7 @@ const Header = () => {
     cookie.remove("loggedInUser");
     cookie.remove("userName");
     setIsLoggedIn(false);
-    window.location.replace("/");
+    window.location.replace(`${process.env.REACT_APP_ROUTE_URL}/`);
   };
   useEffect(() => {
     setIsLoggedIn(cookie.load("loggedInUser"));
